@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TPE POO" default="dist" basedir=".">
+
+	<!-- Compila el proyecto, deja los archivos class en el directorio bin -->
+	<target name="compile">
+		<mkdir dir="bin" />
+		<javac srcdir="src" includeAntRuntime="false" destdir="bin" classpath="lib/junit-4.7.jar" source="1.6" />
+	</target>
+
+	<!-- Crea la documentacion en formato Javadoc, en el directorio doc. -->
+	<target name="doc" depends="compile">
+		<javadoc sourcepath="src" destdir="doc" classpath="lib/junit-4.7.jar" />
+	</target>
+
+	<!-- Ejecuta los tests. -->
+	<target name="tests" depends="compile">
+		<junit>
+			<formatter type="brief" usefile="false" />
+			<classpath path="bin;lib/junit-4.7.jar" />
+
+			<test name="tests.TestBlankCell" />
+			<test name="tests.TestBoard" />
+			<test name="tests.TestBreakableWall" />
+			<test name="tests.TestCoin" />
+			<test name="tests.TestDestiny" />
+			<test name="tests.TestGame" />
+			<test name="tests.TestKeyAndDoor" />
+			<test name="tests.TestLevel" />
+			<test name="tests.TestPlayerAndTransporter" />
+			<test name="tests.TestWall" />
+
+		</junit>
+	</target>
+
+	<!-- Crea el jar ejecutable con todo el proyecto compilado. -->
+	<target name="dist" depends="compile, doc, tests">
+		<copy todir="bin/resources">
+			<fileset dir="resources" />
+		</copy>
+		<jar destfile="tpe.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="frontend.graphics.App" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Borra todos los archivos generados luego de compilar. -->
+	<target name="clean">
+		<delete dir="bin" />
+		<delete dir="doc" />
+		<delete file="tpe.jar" />
+	</target>
+
+</project>

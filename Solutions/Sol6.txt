@@ -1,0 +1,1 @@
+colormap;0;RIGHT;RIGHT;RIGHT;UP;LEFT;UP;
